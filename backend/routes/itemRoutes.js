@@ -1,0 +1,12 @@
+import { Router } from "express";
+import { createItem, getItems, myItems, getMatches, updateStatus, deleteItem, adminStats } from "../controllers/itemController.js";
+import { protect, adminOnly } from "../middleware/authMiddleware.js";
+const router = Router();
+router.get("/", getItems);
+router.post("/", protect, createItem);
+router.get("/mine", protect, myItems);
+router.get("/matches", protect, getMatches);
+router.get("/admin/stats", protect, adminOnly, adminStats);
+router.patch("/:id/status", protect, updateStatus);
+router.delete("/:id", protect, deleteItem);
+export default router;
